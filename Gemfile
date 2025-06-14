@@ -1,9 +1,9 @@
-# frozen_string_literal: true
+ # frozen_string_literal: true
 
 source "https://rubygems.org"
 git_source(:github){ |repo| "https://github.com/#{repo}.git" }
 
-gem "rails", "~> 5.2.2"
+gem "rails", "~> 5.2.8.1"
 
 gem "aasm"
 gem "autoprefixer-rails"
@@ -26,6 +26,7 @@ gem "jbuilder", "~> 2.5"
 gem "jquery-rails"
 gem "loaf"
 gem "mailgun-ruby", "~>1.1.6"
+gem 'marcel', '~> 1.0', '>= 1.0.4'
 gem "normailize"
 gem "octokit"
 gem "omniauth-github"
