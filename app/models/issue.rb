@@ -127,6 +127,7 @@ class Issue < ApplicationRecord
     # FIXME postgres incompatability, ugly workaround here
     # result = Issue.connection.execute("SELECT nextval('issues_issue_number_seq')")
     # self.issue_number = result[0]['nextval']
+
     self.issue_number = Time.now.to_i
   end
 
