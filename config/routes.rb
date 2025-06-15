@@ -1,5 +1,3 @@
-require 'resque/server'
-
 Rails.application.routes.draw do
 
   mount_griddler
@@ -15,7 +13,7 @@ Rails.application.routes.draw do
     authy_onetouch_status: "/onetouch-status"
   }
 
-  # Resque background jobs
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   authenticate :account, ->(u) { u.is_admin? } do
     mount Resque::Server.new, at: "/resque"
   end
