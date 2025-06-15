@@ -13,7 +13,7 @@ class ContactFormRateLimitValidator < ActiveModel::Validator
   end
 
   def max_general_contacts_per_day
-    ENV.fetch('MAX_GENERAL_CONTACTS_PER_DAY')
+    ENV.fetch('MAX_GENERAL_CONTACTS_PER_DAY').to_i
   end
 
 end

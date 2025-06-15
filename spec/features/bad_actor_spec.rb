@@ -61,7 +61,7 @@ describe "reporting a project for abuse" do
   let(:project) { FactoryBot.create(:project, account: honest_maintainer) }
   let(:abuse_reports) do
     Array.new(
-      ENV.fetch('MAX_ABUSE_REPORTS_PER_DAY'),
+      ENV.fetch('MAX_ABUSE_REPORTS_PER_DAY').to_i,
       AbuseReport.new(aasm_state: "submitted", project: Project.new)
     )
   end
@@ -144,7 +144,7 @@ describe "any user (signed in or not) using the general contact form" do
       allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }
       allow(ContactMessage)
         .to receive_message_chain(:past_24_hours, :for_ip)
-        .and_return(Array.new(ENV.fetch('MAX_GENERAL_CONTACTS_PER_DAY'), ContactMessage.new))
+        .and_return(Array.new(ENV.fetch('MAX_GENERAL_CONTACTS_PER_DAY').to_i, ContactMessage.new))
     end
 
     it "is blocked by rate limiting" do
@@ -198,7 +198,7 @@ describe "a malicious reporter attempting to open an issue" do
     let(:reporter) { FactoryBot.create(:michael) }
 
     before do
-      ENV.fetch('MAX_ISSUES_PER_DAY').times do
+      ENV.fetch('MAX_ISSUES_PER_DAY').to_i.times do
         FactoryBot.create(:issue, reporter_id: reporter.id, project_id: project.id)
       end
     end

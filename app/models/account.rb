@@ -45,7 +45,7 @@ class Account < ApplicationRecord
   end
 
   def flag!(reason)
-    self.update_attributes(
+    self.update(
       is_flagged: true,
       flagged_reason: reason,
       flagged_at: Time.zone.now
@@ -54,7 +54,7 @@ class Account < ApplicationRecord
   end
 
   def unflag!
-    self.update_attributes(
+    self.update(
       is_flagged: false,
       flagged_reason: nil,
       flagged_at: nil

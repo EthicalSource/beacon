@@ -131,7 +131,7 @@ class ProjectsController < ApplicationController
     project_params.delete(:name)
     previous_repo_url = @project.repo_url.to_s
     previous_project_name = @project.name
-    if @project.update_attributes(project_params)
+    if @project.update(project_params)
       @project.unconfirm_ownership! if previous_repo_url != project_params[:repo_url].to_s
       if project_params[:name] != previous_project_name && @project.public?
         AdminMailer.with(

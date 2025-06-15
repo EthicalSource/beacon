@@ -29,7 +29,7 @@ class AdminMailer < ApplicationMailer
     @project = params[:project]
     @old_name = params[:old_name]
     @new_name = params[:new_name]
-    mail(to: ENV.fetch('SUPPORT_EMAIL_ADDRESS')support, subject: "Beacon: Project name changed from #{@old_name} to #{@new_name}")
+    mail(to: ENV.fetch('SUPPORT_EMAIL_ADDRESS'), subject: "Beacon: Project name changed from #{@old_name} to #{@new_name}")
   end
 
 end
