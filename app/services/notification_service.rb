@@ -29,7 +29,7 @@ class NotificationService
   end
 
   def self.notify_moderators_on_issue_via_sms(project_id, issue_id)
-    client = Twilio::REST::Client.new(Setting.sms(:account_sid), Setting.sms(:auth_token))
+    client = Twilio::REST::Client.new(ENV.fetch('TWILIO_ACCOUNT_SID'), ENV.fetch('TWILIO_AUTH_TOKEN'))
     project = Project.find(project_id)
     issue = Issue.find(issue_id)
 
@@ -45,7 +45,7 @@ class NotificationService
         client.messages.create(
           body: body,
           to: account.phone_number,
-          from: Setting.sms(:from)
+          from: ENV.fetch('TWILIO_PHONE_NUMBER')
         )
       rescue StandardError => e
         Rails.logger.info("Failed to send SMS: #{e} #{e.backtrace}")

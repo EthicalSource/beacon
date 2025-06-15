@@ -6,7 +6,7 @@ class EncryptionService
   end
 
   def self.encrypt(text, secret_key_base = nil)
-    secret_key_base ||= Setting.encryption(:secret_key_base)
+    secret_key_base ||= ENV.fetch('SECRET_KEY_BASE')
     len   = ActiveSupport::MessageEncryptor.key_len
     salt  = SecureRandom.hex len
     key   = ActiveSupport::KeyGenerator.new(secret_key_base).generate_key(salt, len)
@@ -16,7 +16,7 @@ class EncryptionService
   end
 
   def self.decrypt(text, secret_key_base = nil)
-    secret_key_base ||= Setting.encryption(:secret_key_base)
+    secret_key_base ||= ENV.fetch('SECRET_KEY_BASE')
     salt, data = text.split('$$')
     len   = ActiveSupport::MessageEncryptor.key_len
     key   = ActiveSupport::KeyGenerator.new(secret_key_base).generate_key(salt, len)

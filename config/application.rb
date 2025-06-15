@@ -28,7 +28,7 @@ module Beacon
       g.orm :active_record, foreign_key_type: :uuid
     end
     config.exceptions_app = self.routes
-    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+#    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
     config.to_prepare do
       Devise::Mailer.layout "mailer"
     end

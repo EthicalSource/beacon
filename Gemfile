@@ -3,7 +3,6 @@
 source "https://rubygems.org"
 git_source(:github){ |repo| "https://github.com/#{repo}.git" }
 
-# gem "rails", "~> 5.2.8.1"
 gem "rails", "~> 7.1"
 
 gem "aasm"
@@ -18,7 +17,6 @@ gem "bootswatch"
 gem "coffee-rails", "~> 4.2"
 gem "devise"
 gem "devise-authy"
-gem "dotenv-rails"
 gem "faker"
 gem "fittings"
 gem "gitlab"
@@ -58,6 +56,7 @@ gem "valid_email2"
 group :development, :test do
   gem "brakeman"
   gem "rspec-rails"
+  gem "dotenv-rails"
 end
 
 group :development do

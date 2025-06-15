@@ -1,4 +1,4 @@
 class ApplicationMailer < AsyncMailer
-  default from: Setting.emails(:robot)
+  default from: ENV.fetch('ROBOT_EMAIL_ADDRESS')
   layout 'mailer'
 end
