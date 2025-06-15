@@ -14,9 +14,11 @@ Rails.application.routes.draw do
   }
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  authenticate :account, ->(u) { u.is_admin? } do
-    mount Resque::Server.new, at: "/resque"
-  end
+
+  # FIXME commented out during upgrade
+  # authenticate :account, ->(u) { u.is_admin? } do
+  #   mount Resque::Server.new, at: "/resque"
+  # end
 
   root to: "static_content#main"
   get "about", to: "static_content#about"
