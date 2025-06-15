@@ -4,6 +4,7 @@ source "https://rubygems.org"
 git_source(:github){ |repo| "https://github.com/#{repo}.git" }
 
 gem "rails", "~> 5.2.8.1"
+# gem "rails", "~> 6.0.1"
 
 gem "aasm"
 gem "autoprefixer-rails"
@@ -57,7 +58,8 @@ group :development, :test do
 end
 
 group :development do
-  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
+# FIXME could not compile byebug intermediate version, try uncommenting when upgrade is complete
+#  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "pry"
   gem "rails_layout", github: "RailsApps/rails_layout"
