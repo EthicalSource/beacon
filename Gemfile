@@ -62,6 +62,7 @@ group :development do
   gem "pry"
   gem "rails_layout", github: "RailsApps/rails_layout"
   gem "rubocop", "~> 0.62.0"
+  gem "mutex_m"
   # FIXME try uncommenting when upgrade is complete
   # gem "spring"
   # gem "spring-watcher-listen", "~> 2.0.0"
