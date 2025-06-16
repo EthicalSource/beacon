@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github){ |repo| "https://github.com/#{repo}.git" }
 
-gem "rails", "~> 7.2"
+gem "rails", "~> 8.0.2"
 
 gem "aasm"
 gem "autoprefixer-rails"
@@ -32,8 +32,6 @@ gem "omniauth-gitlab"
 gem "pg"
 gem "popper_js", "~> 1.14.5"
 gem "premailer-rails"
-gem "pry-doc", "~> 1.0"
-gem "pry-rails", "~> 0.3.9"
 gem "puma", "~> 3.11"
 gem "rack-attack"
 gem "recaptcha"
@@ -59,10 +57,12 @@ group :development do
 # FIXME could not compile byebug intermediate version, try uncommenting when upgrade is complete
 #  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "listen", ">= 3.0.5", "< 3.2"
+  gem "pry-doc", "~> 1.0"
+  gem "pry-rails", "~> 0.3.9"
   gem "pry"
   gem "rails_layout", github: "RailsApps/rails_layout"
   gem "rubocop", "~> 0.62.0"
-  gem "mutex_m"
+#  gem "mutex_m"
   # FIXME try uncommenting when upgrade is complete
   # gem "spring"
   # gem "spring-watcher-listen", "~> 2.0.0"

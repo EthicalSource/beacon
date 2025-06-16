@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Beacon
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 8.0
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -21,7 +21,7 @@ module Beacon
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    config.time_zone = 'Central Time (US & Canada)'
+    # config.time_zone = "Central Time (US & Canada)"
     config.active_record.default_timezone = :local
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
