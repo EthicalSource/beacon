@@ -1,9 +1,9 @@
 class ContactFormRateLimitValidator < ActiveModel::Validator
 
   def validate(record)
-    return true if messages_count(record) < max_general_contacts_per_day
-
-    record.errors[:limit] << "of messages you can send has been reached."
+    return if messages_count(record) < max_general_contacts_per_day
+    record.errors.add(:limit, "The limit of messages you can send has been reached.")
+    record.errors
   end
 
   private
@@ -13,7 +13,7 @@ class ContactFormRateLimitValidator < ActiveModel::Validator
   end
 
   def max_general_contacts_per_day
-    Setting.throttling(:max_general_contacts_per_day)
+    ENV.fetch('MAX_GENERAL_CONTACTS_PER_DAY').to_i
   end
 
 end

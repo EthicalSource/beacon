@@ -64,7 +64,7 @@ class RespondentTemplatesController < ApplicationController
 
   def update
     @template = @subject.respondent_template
-    if @template.update_attributes(respondent_template_params)
+    if @template.update(respondent_template_params)
       redirect_to @subject
     else
       flash[:error] = @template.errors.full_messages

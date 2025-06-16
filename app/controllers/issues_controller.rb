@@ -38,7 +38,7 @@ class IssuesController < ApplicationController
 
   def upload
     recaptcha_success = verify_recaptcha(model: @issue)
-    if recaptcha_success && @issue.update_attributes(uploads: issue_params[:uploads])
+    if recaptcha_success && @issue.update(uploads: issue_params[:uploads])
       redirect_to project_issue_path(@project, @issue)
     else
       ActivityLoggingService.log(current_account, :recaptcha_failures) unless recaptcha_success
@@ -48,7 +48,7 @@ class IssuesController < ApplicationController
   end
 
   def update
-    @issue.update_attributes(issue_params)
+    @issue.update(issue_params)
     redirect_to project_issue_path(@project, @issue)
   end
 
@@ -117,7 +117,7 @@ class IssuesController < ApplicationController
   end
 
   def resolve
-    @issue.update_attributes(
+    @issue.update(
       resolution_text: issue_params[:resolution_text],
       closed_at: DateTime.now
     )

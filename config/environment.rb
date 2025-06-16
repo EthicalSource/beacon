@@ -1,8 +1,7 @@
 # Load the Rails application.
-require_relative 'application'
-# Initialize the Rails application.
-Setting.load(path: "#{Rails.root}/config/settings", files: ["default.yml", "environments/#{Rails.env}.yml"])
+require_relative "application"
 
+# Initialize the Rails application.
 Rails.application.initialize!
 
 ActionMailer::Base.smtp_settings = {

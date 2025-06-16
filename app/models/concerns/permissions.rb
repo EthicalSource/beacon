@@ -126,14 +126,14 @@ module Permissions
     return false if project.require_3rd_party_auth? && !third_party_credentials?
     return false if blocked_from_project?(project)
     return false if project.issue_count_from_past_24_hours == project.project_setting.rate_per_day
-    return false if issues.submitted.past_24_hours.count == Setting.throttling(:max_issues_per_day)
+    return false if issues.submitted.past_24_hours.count == ENV.fetch('MAX_ISSUES_PER_DAY').to_i
     return true
   end
 
   def can_report_abuse?(project)
     return false if is_flagged
     submitted = abuse_reports.submitted
-    return false if submitted.count >= Setting.throttling(:max_abuse_reports_per_day)
+    return false if submitted.count >= ENV.fetch('MAX_ABUSE_REPORTS_PER_DAY').to_i
     return false if submitted.map(&:abuse_report_subject).select{ |ars| ars.project_id = project.id }.any?
     true
   end

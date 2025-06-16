@@ -19,7 +19,7 @@ module Admin
     end
 
     def update
-      @report.update_attributes(report_params)
+      @report.update(report_params)
       case params[:commit]
       when "Lock Account"
         @report.reportee.flag!(params[:admin_note])

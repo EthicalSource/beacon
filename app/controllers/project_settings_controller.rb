@@ -16,7 +16,7 @@ class ProjectSettingsController < ApplicationController
   end
 
   def update
-    @settings.update_attributes(settings_params)
+    @settings.update(settings_params)
     @settings.touch
     redirect_to project_path(@project)
   end

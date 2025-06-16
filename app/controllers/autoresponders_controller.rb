@@ -86,7 +86,7 @@ class AutorespondersController < ApplicationController
   end
 
   def update
-    if @autoresponder.update_attributes(autoresponder_params)
+    if @autoresponder.update(autoresponder_params)
       flash[:notice] = "You have successfully updated the autoresponder."
       redirect_to @subject
     else

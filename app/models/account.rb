@@ -15,7 +15,7 @@ class Account < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:github, :gitlab]
   include OmniauthHandler
 
-  validates_uniqueness_of :normalized_email
+  validates_uniqueness_of :normalized_email, { message: "Email address must be unique"}
   validates :email, 'valid_email_2/email': { disposable: true, mx: true }
 
   has_one  :account_activity_log, dependent: :destroy
@@ -45,7 +45,7 @@ class Account < ApplicationRecord
   end
 
   def flag!(reason)
-    self.update_attributes(
+    self.update(
       is_flagged: true,
       flagged_reason: reason,
       flagged_at: Time.zone.now
@@ -54,7 +54,7 @@ class Account < ApplicationRecord
   end
 
   def unflag!
-    self.update_attributes(
+    self.update(
       is_flagged: false,
       flagged_reason: nil,
       flagged_at: nil

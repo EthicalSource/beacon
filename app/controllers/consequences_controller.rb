@@ -18,7 +18,7 @@ class ConsequencesController < ApplicationController
     if params[:commit] == "Delete"
       consequence.destroy
     else
-      consequence.update_attributes(consequence_params)
+      consequence.update(consequence_params)
     end
     if organization = @guide.organization
       redirect_to organization_consequence_guide_path(organization)
