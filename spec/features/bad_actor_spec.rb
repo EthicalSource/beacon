@@ -152,7 +152,7 @@ describe "any user (signed in or not) using the general contact form" do
       fill_in "Your email address", with: "donnie@realdomain.com"
       fill_in "Message", with: "I'm gonna bomb your inbox!"
       click_button "Send Message"
-      expect(page).to have_content "Limit of messages you can send has been reached"
+      expect(page).to have_content "The limit of messages you can send has been reached."
     end
 
   end
