@@ -30,11 +30,11 @@ class Rack::Attack
     req.params['email'].presence if req.path == '/accounts/sign_in' && req.post?
   end
 
-  self.blocklisted_response = lambda do
+  self.blocklisted_responder = lambda do
     [ENV.fetch('THROTTLED_RESPONSE_CODE', 418), {}, ['']]
   end
 
-  self.throttled_response = lambda do
+  self.throttled_responder = lambda do
     [ENV.fetch('THROTTLED_RESPONSE_CODE', 418), {}, ['']]
   end
 end

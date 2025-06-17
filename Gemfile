@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github){ |repo| "https://github.com/#{repo}.git" }
 
-gem "rails", "~> 7.2"
+gem "rails", "~> 8.0.2"
 
 gem "aasm"
 gem "autoprefixer-rails"
@@ -14,6 +14,7 @@ gem "coffee-rails", "~> 4.2"
 gem "devise"
 gem "devise-authy"
 gem "faker"
+gem "faraday-retry"
 gem "fittings"
 gem "gitlab"
 gem "google-cloud-storage", require: false
@@ -32,8 +33,6 @@ gem "omniauth-gitlab"
 gem "pg"
 gem "popper_js", "~> 1.14.5"
 gem "premailer-rails"
-gem "pry-doc", "~> 1.0"
-gem "pry-rails", "~> 0.3.9"
 gem "puma", "~> 3.11"
 gem "rack-attack"
 gem "recaptcha"
@@ -56,27 +55,19 @@ group :development, :test do
 end
 
 group :development do
-# FIXME could not compile byebug intermediate version, try uncommenting when upgrade is complete
-#  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "listen", ">= 3.0.5", "< 3.2"
+  gem "pry-doc", "~> 1.0"
+  gem "pry-rails", "~> 0.3.9"
   gem "pry"
   gem "rails_layout", github: "RailsApps/rails_layout"
   gem "rubocop", "~> 0.62.0"
-  gem "mutex_m"
-  # FIXME try uncommenting when upgrade is complete
-  # gem "spring"
-  # gem "spring-watcher-listen", "~> 2.0.0"
   gem "web-console", ">= 3.3.0"
 end
 
 group :test do
   gem "capybara", ">= 2.15"
-  gem "chromedriver-helper"
   gem "factory_bot_rails"
-  gem "launchy"
-  gem "rails-controller-testing"
   gem "selenium-webdriver"
-  gem "simplecov", require: false
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

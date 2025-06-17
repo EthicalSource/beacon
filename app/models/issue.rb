@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class Issue < ApplicationRecord
 
   include AASM
@@ -128,7 +130,7 @@ class Issue < ApplicationRecord
     # result = Issue.connection.execute("SELECT nextval('issues_issue_number_seq')")
     # self.issue_number = result[0]['nextval']
 
-    self.issue_number = Time.now.to_i
+    self.issue_number = SecureRandom.uuid
   end
 
   def set_reporter_encrypted_id

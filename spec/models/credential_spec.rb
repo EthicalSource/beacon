@@ -42,7 +42,6 @@ RSpec.describe Credential, type: :model  do
 
   describe '#find_with_omniauth' do
     it 'should return the credential' do
-      p credential.inspect
       credential.save!
       expect(Credential.find_with_omniauth(auth_data)).to eq credential
     end

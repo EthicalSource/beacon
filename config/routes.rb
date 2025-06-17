@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  mount_griddler
+#  mount_griddler
 
   devise_for :accounts, controllers: {
     sessions: "accounts/sessions",
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   # end
 
   root to: "static_content#main"
+
   get "about", to: "static_content#about"
   get "user_guides", to: "static_content#guide"
 

@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Accounts::OmniauthCallbacksController, type: :controller do
-  before(:all) { OmniAuth.config.test_mode = true }
+  before(:all) do
+    OmniAuth.config.test_mode = true
+  end
 
   let(:account){ FactoryBot.create(:account, email: 'ram@example.com') }
 
@@ -9,6 +11,7 @@ RSpec.describe Accounts::OmniauthCallbacksController, type: :controller do
     let(:callback){ get :github }
 
     before do
+      allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }
       OmniAuth.config.add_mock(
         :github,
         info: {
