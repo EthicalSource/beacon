@@ -14,6 +14,7 @@ gem "coffee-rails", "~> 4.2"
 gem "devise"
 gem "devise-authy"
 gem "faker"
+gem "faraday-retry"
 gem "fittings"
 gem "gitlab"
 gem "google-cloud-storage", require: false

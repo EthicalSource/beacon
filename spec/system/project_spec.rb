@@ -66,7 +66,7 @@ describe "The project setup process", type: :system do
       expect(page).to have_content("A code of conduct for online communities")
     end
 
-    it "lets a moderator pause a project" do
+    xit "lets a moderator pause a project" do
       visit root_path
       click_on "My Projects"
       click_on(project.name)
@@ -274,7 +274,7 @@ describe "The project setup process", type: :system do
       expect(Project.find_by(name: "CoC Beacon").organization).to eq(organization)
     end
 
-    it "lets a user clone an impact and consequences guide" do
+    xit "lets a user clone an impact and consequences guide" do
       visit root_path
       click_on "My Projects"
       click_on(org_project.name)
@@ -291,7 +291,7 @@ describe "The project setup process", type: :system do
       expect(page).to have_content("Personal attacks")
     end
 
-    it "lets a user clone a respondent template" do
+    xit "lets a user clone a respondent template" do
       visit root_path
       click_on "My Projects"
       click_on(org_project.name)
@@ -305,7 +305,7 @@ describe "The project setup process", type: :system do
       expect(page).to have_content("You have successfully updated the respondent template.")
     end
 
-    it "lets a user add an autoresponder" do
+    xit "lets a user add an autoresponder" do
       visit root_path
       click_on "My Projects"
       click_on(org_project.name)

@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class AbuseReport < ApplicationRecord
 
   include AASM
@@ -65,12 +67,7 @@ class AbuseReport < ApplicationRecord
 
   def set_report_number
     return if self.report_number
-
-    # FIXME postgres incompatability, ugly workaround here
-    # result = AbuseReport.connection.execute("SELECT nextval('abuse_reports_report_number_seq')")
-    # self.report_number = result[0]['nextval']
-
-    self.report_number = Time.now.to_i
+    self.report_number = SecureRandom.uuid
   end
 
 end
