@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "the reporting process", type: :feature do
+describe "the reporting process", type: :system do
 
   let(:maintainer) { FactoryBot.create(:danielle) }
   let!(:project) { FactoryBot.create(:project, account: maintainer, public: true) }

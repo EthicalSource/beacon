@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Admins", type: :feature do
+describe "Admins", type: :system do
 
   let!(:admin) { FactoryBot.create(:admin) }
   let!(:maintainer) { FactoryBot.create(:danielle) }

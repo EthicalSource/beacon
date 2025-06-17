@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "the respondent experience", type: :feature do
+describe "the respondent experience", type: :system do
 
   let(:maintainer)  { FactoryBot.create(:danielle) }
   let!(:project)    { FactoryBot.create(:project, account: maintainer, public: true) }

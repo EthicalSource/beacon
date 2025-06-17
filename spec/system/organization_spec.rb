@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "organization management", type: :feature do
+describe "organization management", type: :system do
 
   before :all do
     Autoresponder.create(scope: "template", text: "Thank you for opening a code of conduct issue")

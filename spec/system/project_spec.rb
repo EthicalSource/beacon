@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "The project setup process", type: :feature do
+describe "The project setup process", type: :system do
 
   let!(:maintainer) { FactoryBot.create(:danielle) }
   let!(:moderator) { FactoryBot.create(:peter) }

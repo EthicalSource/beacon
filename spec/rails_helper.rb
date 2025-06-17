@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'devise'
 require 'simplecov'
-require 'capybara/rspec'
+#require 'capybara/rspec'
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -45,7 +45,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+ # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view

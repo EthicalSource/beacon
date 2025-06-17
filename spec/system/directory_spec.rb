@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "the directory", type: :feature do
+describe "the directory", type: :system do
 
   let(:maintainer) { FactoryBot.create(:danielle) }
   let!(:project_1) do

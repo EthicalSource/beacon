@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "moderation", type: :feature do
+describe "moderation", type: :system do
 
   let(:moderator) { FactoryBot.create(:danielle) }
   let!(:reporter) { FactoryBot.create(:exene) }
