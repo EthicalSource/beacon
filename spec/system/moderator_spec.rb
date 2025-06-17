@@ -63,7 +63,7 @@ describe "moderation", type: :system do
       visit projects_path
       visit projects_path
       click_on project.name
-      click_on issue.issue_number
+      click_on issue.issue_number.to_s
       expect(page).to have_content("Reporter Talk 1")
     end
 
@@ -74,7 +74,7 @@ describe "moderation", type: :system do
     before do
       visit projects_path
       click_on project.name
-      click_on issue.issue_number
+      click_on issue.issue_number.to_s
     end
 
     it "shows the reporter's name or email" do
@@ -113,7 +113,7 @@ describe "moderation", type: :system do
       )
       visit projects_path
       click_on project.name
-      click_on issue.issue_number
+      click_on issue.issue_number.to_s
     end
 
     it "allows a moderator to assign a severity" do
@@ -125,8 +125,8 @@ describe "moderation", type: :system do
     it "allows a moderator to acknowledge an issue" do
       click_on "Acknowledge"
       expect(page).to have_content("Acknowledged")
-      expect(page).to have_content("Status changed to acknowledged by #{moderator.email}")
       click_on "Issue History"
+      expect(page).to have_content("Status changed to acknowledged by #{moderator.email}")
     end
 
     it "allows a moderator to resolve an issue" do
@@ -159,7 +159,7 @@ describe "moderation", type: :system do
     before do
       visit projects_path
       click_on project.name
-      click_on issue.issue_number
+      click_on issue.issue_number.to_s
     end
 
     it "allows the moderator to send a message to other moderators" do
@@ -207,7 +207,7 @@ describe "moderation", type: :system do
       before do
         visit projects_path
         click_on project.name
-        click_on issue.issue_number
+        click_on issue.issue_number.to_s
       end
 
       it "allows the moderator to send a message to a reporter" do
@@ -222,7 +222,7 @@ describe "moderation", type: :system do
       it "allows the moderator to see details about the reporter" do
         click_on "Details"
         expect(page).to have_content("Reporter Profile for #{reporter.email}")
-        expect(page).to have_content("Issue ##{issue.issue_number}")
+        expect(page).to have_content("Issue ##{issue.issue_number.to_s}")
       end
 
       it "allows the moderator to block the reporter" do
@@ -254,7 +254,7 @@ describe "moderation", type: :system do
       )
       visit projects_path
       click_on project.name
-      click_on issue.issue_number
+      click_on issue.issue_number.to_s
     end
 
     it "allows the moderator to assign a respondent" do
@@ -289,7 +289,7 @@ describe "moderation", type: :system do
           click_on "Details"
         end
         expect(page).to have_content("Respondent Profile for #{respondent.email}")
-        expect(page).to have_content("Issue ##{issue.issue_number}")
+        expect(page).to have_content("Issue ##{issue.issue_number.to_s}")
       end
 
       it "allows the moderator to block the respondent" do
