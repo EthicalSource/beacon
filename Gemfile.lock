@@ -129,10 +129,6 @@ GEM
     css_parser (1.21.1)
       addressable
     csv (3.3.5)
-    database_cleaner-active_record (2.2.1)
-      activerecord (>= 5.a)
-      database_cleaner-core (~> 2.0.0)
-    database_cleaner-core (2.0.1)
     date (3.4.1)
     declarative (0.0.20)
     devise (4.9.4)
@@ -586,7 +582,6 @@ DEPENDENCIES
   brakeman
   capybara (>= 2.15)
   coffee-rails (~> 4.2)
-  database_cleaner-active_record
   devise
   devise-authy
   dotenv-rails
