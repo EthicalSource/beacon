@@ -32,19 +32,19 @@ describe "Admins", type: :system do
     end
 
     it "can view an individual abuse report" do
-      click_on(abuse_report.report_number)
+      click_on(abuse_report.report_number.to_s)
       expect(page).to have_content("Repeated offenses")
     end
 
     it "can dismiss a report" do
-      click_on(abuse_report.report_number)
+      click_on(abuse_report.report_number.to_s)
       fill_in "abuse_report_admin_note", with: "This seems excessive."
       click_on "Dismiss Report"
       expect(page).to have_content("Dismissed")
     end
 
     it "can resolve a report" do
-      click_on(abuse_report.report_number)
+      click_on(abuse_report.report_number.to_s)
       fill_in "abuse_report_admin_note", with: "What a jerk."
       click_on "Lock Account"
       expect(page).to have_content("Resolved")

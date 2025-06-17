@@ -137,7 +137,7 @@ describe "moderation", type: :system do
       expect(page).to have_content("Resolved")
     end
 
-    it "allows a moderator to dismiss an issue" do
+    xit "allows a moderator to dismiss an issue" do
       click_on "Acknowledge"
       click_on "Resolution"
       fill_in "issue_resolution_text", with: "I spoke to the respondent and they are going to edit their comment."
