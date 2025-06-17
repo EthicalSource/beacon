@@ -164,8 +164,8 @@ describe "a reporter or respondent adding an issue comment" do
   context "for a moderator who has unread notifications from the user on this issue" do
 
     let(:maintainer) { FactoryBot.create(:danielle) }
-    let!(:project) { FactoryBot.create(:project, account: maintainer) }
-    let!(:reporter) { FactoryBot.create(:exene) }
+    let(:project) { FactoryBot.create(:project, account: maintainer) }
+    let(:reporter) { FactoryBot.create(:exene) }
     let(:issue) { FactoryBot.create(:issue, project_id: project.id, reporter_id: reporter.id) }
 
     before do
