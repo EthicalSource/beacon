@@ -96,10 +96,8 @@ GEM
     benchmark (0.4.1)
     bigdecimal (3.2.2)
     bindex (0.8.1)
-    bootstrap (4.6.1)
-      autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 1.14.3, < 2)
-      sassc-rails (>= 2.0.0)
+    bootstrap (5.3.5)
+      popper_js (>= 2.11.8, < 3)
     bootstrap-toggle-rails (2.2.1.0)
     bootswatch (4.3.1)
       autoprefixer-rails (>= 6.0.3)
@@ -330,7 +328,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
-    popper_js (1.14.7)
+    popper_js (2.11.8)
     powerpack (0.1.3)
     pp (0.6.2)
       prettyprint
@@ -355,7 +353,8 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (3.12.6)
+    puma (5.6.9)
+      nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.16)
     rack-attack (6.7.0)
@@ -598,12 +597,12 @@ DEPENDENCIES
   omniauth-github
   omniauth-gitlab
   pg
-  popper_js (~> 1.14.5)
+  popper_js (~> 2.11.8)
   premailer-rails
   pry
   pry-doc (~> 1.0)
   pry-rails (~> 0.3.9)
-  puma (~> 3.11)
+  puma (~> 5.6)
   rack-attack
   rails (~> 8.0.2)
   rails_layout!
