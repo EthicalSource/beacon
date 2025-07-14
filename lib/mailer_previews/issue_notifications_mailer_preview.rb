@@ -1,4 +1,4 @@
-class MailerPreview::IssueNotificationsMailerPreview < ActionMailer::Preview
+class IssueNotificationsMailerPreview < ActionMailer::Preview
 
   def notify_on_status_change
     params = {

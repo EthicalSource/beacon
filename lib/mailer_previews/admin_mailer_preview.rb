@@ -1,4 +1,4 @@
-class MailerPreview::AdminMailerPreview < ActionMailer::Preview
+class AdminMailerPreview < ActionMailer::Preview
 
   def notify_on_abuse_report
     report = AbuseReport.new(

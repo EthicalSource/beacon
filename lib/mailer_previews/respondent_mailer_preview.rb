@@ -1,4 +1,4 @@
-class MailerPreview::RespondentMailerPreview < ActionMailer::Preview
+class RespondentMailerPreview < ActionMailer::Preview
 
   def notify_existing_account_of_issue
     params = {
