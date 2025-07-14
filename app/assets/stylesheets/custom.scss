@@ -33,27 +33,27 @@ pre {
 }
 
 .alert-success {
-  background: $orange;
-  color: $black;
+  background: #df6919;
+  color: #000000;
 }
 
 .bg-primary {
-  background-color: $red !important;
-  background: linear-gradient(180deg, $red, #220000) repeat-x;
+  background-color: #d9534f !important;
+  background: linear-gradient(180deg, #d9534f, #220000) repeat-x;
 }
 
 .form-control:disabled, .form-control[readonly] {
-  background-color: $gray-800;
+  background-color: #343a40;
   color: #ffffff;
 }
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-  background-color: $red;
+  background-color: #d9534f;
   margin-right: 0.5rem;
 }
 
 .nav-tabs .nav-link {
-  background-color: $blue;
+  background-color: #4c9be8;
   margin-right: 0.5rem;
 }
 
