@@ -37,7 +37,7 @@ RSpec.describe IssuesController, type: :controller do
       before do
         allow_any_instance_of(Project).to receive(:accepting_issues?).and_return(true)
         allow(NotificationService).to receive(:notify)
-        allow(Resque).to receive(:enqueue)
+        # allow(Resque).to receive(:enqueue)
       end
 
       it "allows an issue to be opened" do

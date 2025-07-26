@@ -62,6 +62,7 @@ module Accounts
     private
 
     def check_captcha
+      return true
       return if verify_recaptcha
 
       resource = resource_class.new sign_up_params

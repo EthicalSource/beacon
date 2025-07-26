@@ -1,11 +1,11 @@
 class NotificationService
 
   def self.enqueue_notification(account_id:, project_id:, issue_id:, issue_comment_id: nil)
-    Resque.enqueue(NotificationWorker, account_id, project_id, issue_id, issue_comment_id)
+    NotificationJob.perform_later(account_id, project_id, issue_id, issue_comment_id)
   end
 
   def self.enqueue_sms(project_id:, issue_id:)
-    Resque.enqueue(SmsNotificationWorker, project_id, issue_id)
+    SmsNotificationJob.perform_later(project_id, issue_id)
   end
 
   def self.notify(account_id:, project_id:, issue_id:, issue_comment_id: nil)
