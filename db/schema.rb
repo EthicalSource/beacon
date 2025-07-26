@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -49,16 +49,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.integer "password_resets", default: 0
     t.integer "recaptcha_failures", default: 0
     t.integer "four_o_fours", default: 0
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_activity_logs_on_account_id"
   end
 
   create_table "account_issues", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "account_id"
     t.string "issue_encrypted_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_issues_on_account_id"
   end
 
@@ -66,35 +66,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.uuid "project_id"
     t.uuid "account_id"
     t.text "reason"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_project_blocks_on_account_id"
     t.index ["project_id"], name: "index_account_project_blocks_on_project_id"
   end
 
   create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.string "email", default: "", null: false
     t.string "temp_2fa_code"
     t.boolean "email_confirmed"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.datetime "remember_created_at", precision: nil
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at", precision: nil
-    t.datetime "last_sign_in_at", precision: nil
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at", precision: nil
-    t.datetime "confirmation_sent_at", precision: nil
-    t.string "unconfirmed_email"
-    t.integer "failed_attempts", default: 0, null: false
-    t.string "unlock_token"
-    t.datetime "locked_at", precision: nil
     t.string "normalized_email"
     t.string "hashed_email"
     t.string "notification_encrypted_ids", default: [], array: true
@@ -104,13 +85,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.datetime "flagged_at", precision: nil
     t.boolean "flag_requested", default: false
     t.text "flag_requested_reason"
-    t.string "authy_id"
-    t.datetime "last_sign_in_with_authy", precision: nil
-    t.boolean "authy_enabled", default: false
     t.string "phone_encrypted"
     t.boolean "send_sms_on_issue_open", default: false
     t.boolean "is_external_reporter", default: false
-    t.index ["authy_id"], name: "index_accounts_on_authy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.index ["confirmation_token"], name: "index_accounts_on_confirmation_token", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["normalized_email"], name: "index_accounts_on_normalized_email", unique: true
@@ -118,30 +114,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.index ["unlock_token"], name: "index_accounts_on_unlock_token", unique: true
   end
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.uuid "record_id", null: false
-    t.bigint "blob_id", null: false
-    t.datetime "created_at", precision: nil, null: false
+    t.uuid "blob_id", null: false
+    t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
     t.text "metadata"
+    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
-    t.datetime "created_at", precision: nil, null: false
-    t.string "service_name", null: false
+    t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+  create_table "active_storage_variant_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -151,8 +147,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.uuid "organization_id"
     t.string "scope"
     t.text "text"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_autoresponders_on_organization_id"
     t.index ["project_id"], name: "index_autoresponders_on_project_id"
   end
@@ -161,6 +157,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.uuid "organization_id"
     t.uuid "project_id"
     t.string "scope"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_consequence_guides_on_organization_id"
     t.index ["project_id"], name: "index_consequence_guides_on_project_id"
   end
@@ -171,9 +169,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.string "label", null: false
     t.text "action", null: false
     t.text "consequence", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.string "email_to_notify"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["consequence_guide_id"], name: "index_consequences_on_consequence_guide_id"
   end
 
@@ -181,8 +179,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.text "message"
     t.text "sender_ip"
     t.string "sender_email"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -191,6 +189,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.string "email"
     t.uuid "account_id"
     t.string "token_encrypted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_credentials_on_account_id"
     t.index ["provider", "uid"], name: "index_credentials_on_provider_and_uid", unique: true
   end
@@ -201,8 +201,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.uuid "organization_id"
     t.string "email"
     t.boolean "is_owner", default: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "message"
     t.index ["account_id"], name: "index_invitations_on_account_id"
     t.index ["organization_id"], name: "index_invitations_on_organization_id"
@@ -211,13 +211,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
 
   create_table "issue_comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "text"
+    t.string "comment"
     t.string "commenter_encrypted_id"
     t.boolean "visible_to_reporter", default: false
     t.uuid "issue_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible_to_respondent", default: false
     t.boolean "visible_only_to_moderators", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["issue_id"], name: "index_issue_comments_on_issue_id"
   end
 
@@ -225,16 +226,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.string "event"
     t.string "actor_encrypted_id"
     t.uuid "issue_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["issue_id"], name: "index_issue_events_on_issue_id"
   end
 
   create_table "issue_invitations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "issue_encrypted_id"
     t.string "email"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "issues", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -248,19 +249,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.boolean "is_abusive", default: false
     t.datetime "acknowledged_at", precision: nil
     t.datetime "closed_at", precision: nil
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.text "respondent_summary"
     t.text "respondent_encrypted_id"
     t.text "resolution_text"
     t.datetime "resolved_at", precision: nil
     t.uuid "consequence_id"
     t.uuid "reporter_consequence_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "moderator_blocks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "issue_id"
     t.uuid "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_moderator_blocks_on_account_id"
     t.index ["issue_id"], name: "index_moderator_blocks_on_issue_id"
   end
@@ -269,8 +272,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.uuid "project_id"
     t.uuid "issue_id"
     t.uuid "issue_comment_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["issue_comment_id"], name: "index_notifications_on_issue_comment_id"
     t.index ["issue_id"], name: "index_notifications_on_issue_id"
     t.index ["project_id"], name: "index_notifications_on_project_id"
@@ -284,19 +287,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.text "description"
     t.uuid "account_id"
     t.string "remote_org_name"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
     t.boolean "is_flagged", default: false
     t.text "flagged_reason"
     t.boolean "accept_issues_by_email", default: false
-    t.index ["account_id"], name: "index_organizations_on_account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "project_issues", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "project_id"
     t.string "issue_encrypted_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_project_issues_on_project_id"
   end
 
@@ -308,10 +310,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.boolean "allow_anonymous_issues", default: false
     t.boolean "publish_stats", default: true
     t.uuid "project_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.boolean "show_moderator_names", default: false
-    t.index ["project_id"], name: "index_project_settings_on_project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -321,8 +322,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.string "coc_url", null: false
     t.text "description", null: false
     t.uuid "account_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.boolean "has_confirmed_settings", default: false
     t.datetime "confirmed_at", precision: nil
     t.boolean "is_flagged", default: false
@@ -341,8 +340,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.string "organization_name"
     t.boolean "accept_issues_by_email", default: false
     t.boolean "bulk_created", default: false
-    t.index ["account_id"], name: "index_projects_on_account_id"
-    t.index ["name"], name: "index_projects_on_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["organization_name"], name: "index_projects_on_organization_name"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
@@ -353,11 +352,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.uuid "project_id"
     t.text "text"
     t.boolean "is_beacon_default", default: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.uuid "organization_id"
-    t.index ["organization_id"], name: "index_respondent_templates_on_organization_id"
-    t.index ["project_id"], name: "index_respondent_templates_on_project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -369,8 +366,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.boolean "can_manage_org", default: false
     t.boolean "can_create_org_projects", default: false
     t.boolean "can_see_historic_issues", default: true
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_roles_on_account_id"
     t.index ["organization_id"], name: "index_roles_on_organization_id"
     t.index ["project_id"], name: "index_roles_on_project_id"
@@ -386,9 +383,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.boolean "community"
     t.integer "would_recommend"
     t.text "recommendation_note"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.string "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_surveys_on_project_id"
   end
 
@@ -398,8 +395,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_013607) do
     t.string "ip_address"
     t.text "params"
     t.uuid "account_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_suspicious_activity_logs_on_account_id"
   end
 

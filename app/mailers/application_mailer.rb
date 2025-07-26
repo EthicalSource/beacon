@@ -1,4 +1,4 @@
-class ApplicationMailer < AsyncMailer
+class ApplicationMailer < ActionMailer::Base
   default from: ENV.fetch('ROBOT_EMAIL_ADDRESS')
-  layout 'mailer'
+  layout "mailer"
 end

@@ -2,21 +2,27 @@ require 'digest'
 require 'normailize'
 
 class Account < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  has_secure_password
 
   include Permissions
 
-  devise :authy_authenticatable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  devise :authy_authenticatable, :confirmable, :lockable, :timeoutable,
+  devise :confirmable, :lockable, :timeoutable,
          :trackable, :database_authenticatable, :registerable, :recoverable,
          :rememberable, :validatable
 
   devise :omniauthable, omniauth_providers: [:github, :gitlab]
-  include OmniauthHandler
+#  include OmniauthHandler
 
   validates_uniqueness_of :normalized_email, { message: "Email address must be unique"}
-  validates :email, 'valid_email_2/email': { disposable: true, mx: true }
+  validates :email, format: URI::MailTo::EMAIL_REGEXP
 
   has_one  :account_activity_log, dependent: :destroy
   has_many :abuse_reports, dependent: :delete_all
