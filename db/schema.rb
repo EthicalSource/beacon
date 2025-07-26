@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_25_232847) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -74,7 +74,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_25_232847) do
 
   create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.string "email", default: "", null: false
     t.string "temp_2fa_code"
     t.boolean "email_confirmed"
     t.string "normalized_email"
@@ -221,7 +220,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_25_232847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["issue_id"], name: "index_issue_comments_on_issue_id"
-  end  end
+  end
+
+  create_table "issue_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "event"
+    t.string "actor_encrypted_id"
+    t.uuid "issue_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["issue_id"], name: "index_issue_events_on_issue_id"
+  end
+
+  create_table "issue_invitations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "issue_encrypted_id"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "issues", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "description"
