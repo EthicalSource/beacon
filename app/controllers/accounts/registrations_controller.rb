@@ -1,6 +1,7 @@
 module Accounts
   class RegistrationsController < Devise::RegistrationsController
-    prepend_before_action :check_captcha, only: [:create]
+    # TODO restore later
+    # prepend_before_action :check_captcha, only: [:create]
 
     # GET /resource/sign_up
     # def new
@@ -40,7 +41,7 @@ module Accounts
 
     # If you have extra params to permit, append them to the sanitizer.
     # def configure_sign_up_params
-    #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+    # devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     # end
 
     # If you have extra params to permit, append them to the sanitizer.
