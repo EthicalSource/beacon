@@ -35,6 +35,7 @@ gem "omniauth"
 gem "omniauth-github"
 gem "omniauth-gitlab"
 gem "pg"
+gem "recaptcha"
 gem "rack-attack"
 
 group :development, :test do

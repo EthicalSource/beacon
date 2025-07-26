@@ -1,4 +1,3 @@
-
 Autoresponder.create(
   scope: "template",
   text: %{
