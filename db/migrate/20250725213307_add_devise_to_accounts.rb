@@ -41,6 +41,7 @@ class AddDeviseToAccounts < ActiveRecord::Migration[8.0]
     add_index :accounts, :reset_password_token, unique: true
     add_index :accounts, :confirmation_token,   unique: true
     add_index :accounts, :unlock_token,         unique: true
+
   end
 
   def self.down

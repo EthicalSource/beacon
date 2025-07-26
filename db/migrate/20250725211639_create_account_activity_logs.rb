@@ -15,6 +15,5 @@ class CreateAccountActivityLogs < ActiveRecord::Migration[8.0]
       t.integer "four_o_fours", default: 0
       t.timestamps
     end
-    t.index ["account_id"], name: "index_abuse_reports_on_account_id"
   end
 end
