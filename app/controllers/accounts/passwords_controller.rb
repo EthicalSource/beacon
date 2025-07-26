@@ -37,7 +37,7 @@ module Accounts
     private
 
     def check_captcha
-      return if verify_recaptcha
+      return true # if verify_recaptcha
       self.resource = resource_class.new
       resource.validate
       respond_with_navigational(resource){ render :new }

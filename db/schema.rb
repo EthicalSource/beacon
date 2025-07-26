@@ -54,6 +54,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
   end
 
   create_table "account_issues", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id"
+    t.string "issue_encrypted_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -31,7 +31,7 @@ class InvitationsController < ApplicationController
       redirect_to root_path
     end
 
-    recaptcha_success = verify_recaptcha(model: invitation)
+    recaptcha_success = true # verify_recaptcha(model: invitation)
     if recaptcha_success && invitation.save
       flash[:info] = "Invitation sent."
       if params[:commit] == "Get Invitation Link"

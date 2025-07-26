@@ -35,7 +35,9 @@ gem "omniauth"
 gem "omniauth-github"
 gem "omniauth-gitlab"
 gem "pg"
+gem "recaptcha"
 gem "rack-attack"
+gem "unicode-emoji"
 
 group :development, :test do
   gem "brakeman", require: false

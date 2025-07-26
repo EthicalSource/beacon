@@ -24,7 +24,7 @@ class IssuesController < ApplicationController
   def create
     @issue = Issue.new(issue_params.merge(project_id: @project.id, reporter_id: current_account.id))
     @consequences = @project.consequence_guide.consequences
-    recaptcha_success = verify_recaptcha(model: @issue)
+    recaptcha_success = true # TODO recaptcha verify_recaptcha(model: @issue)
     if recaptcha_success && @issue.save
       ActivityLoggingService.log(current_account, :issues_opened)
       notify_on_new_issue
@@ -37,7 +37,7 @@ class IssuesController < ApplicationController
   end
 
   def upload
-    recaptcha_success = verify_recaptcha(model: @issue)
+    recaptcha_success = true # verify_recaptcha(model: @issue)
     if recaptcha_success && @issue.update(uploads: issue_params[:uploads])
       redirect_to project_issue_path(@project, @issue)
     else

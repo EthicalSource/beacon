@@ -7,7 +7,7 @@ class ContactMessagesController < ApplicationController
   def create
     @contact_message = ContactMessage.new(contact_message_params)
     @contact_message.sender_ip = request.remote_ip
-    recaptcha_success = verify_recaptcha(model: @contact_message)
+    recaptcha_success = true # verify_recaptcha(model: @contact_message)
     if recaptcha_success && @contact_message.save
       notify_on_new_contact_message
       flash[:info] = "Your message has been sent. A Beacon administrator will reply soon."

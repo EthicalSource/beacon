@@ -133,44 +133,52 @@
 
 <div class="row mt-3">
 
-  <div class="nav nav-tabs mt-5 mb-3" id="nav-tab" role="tablist" style="width: 100%;">
-    <a class="nav-link active" id="nav-internal-discussion-tab" data-toggle="pill" href="#nav-internal-discussion" role="tab" aria-controls="nav-internal-discussion" aria-selected="true">
-      Moderator Talk
+  <ul class="nav nav-tabs mt-5 mb-3" id="nav-tab" role="tablist" style="width: 100%;">
+    <li class="nav-item">
+      <button class="nav-link" id="internal-discussion-tab" data-bs-toggle="tab" data-bs-target="#internal-discussion" type="button" role="tab" aria-controls="internal-discussion" aria-selected="false">Moderator Talk</button>
       <% if @notifications_for_internal_comments_count > 0 %>
         <span class="badge badge-pill badge-danger"><%= @notifications_for_internal_comments_count %></span>
       <% end %>
-    </a>
-    <a class="nav-link " id="nav-reporter-discussion-tab" data-toggle="pill" href="#nav-reporter-discussion" role="tab" aria-controls="nav-reporter-discussion" aria-selected="false">
-      Reporter Talk
+    </li>
+
+    <li class="nav-item">
+      <button class="nav-link" id="reporter-discussion-tab" data-bs-toggle="tab" data-bs-target="#reporter-discussion" type="button" role="tab" aria-controls="reporter-discussion" aria-selected="false">Reporter Talk</button>
       <% if @notifications_for_reporter_comments_count > 0 %>
         <span class="badge badge-pill badge-danger"><%= @notifications_for_reporter_comments_count %></span>
       <% end %>
-    </a>
-    <a class="nav-link " id="nav-respondent-discussion-tab" data-toggle="pill" href="#nav-respondent-discussion" role="tab" aria-controls="nav-respondent-discussion" aria-selected="false">
-      Respondent Talk
+    </li>
+
+    <li class="nav-item">
+      <button class="nav-link" id="respondent-discussion-tab" data-bs-toggle="tab" data-bs-target="#respondent-discussion" type="button" role="tab" aria-controls="respondent-discussion" aria-selected="false">Respondent Talk</button>
       <% if @notifications_for_respondent_comments_count > 0 %>
         <span class="badge badge-pill badge-danger"><%= @notifications_for_respondent_comments_count %></span>
       <% end %>
-    </a>
-    <a class="nav-link " id="nav-uploads-tab" data-toggle="pill" href="#nav-uploads" role="tab" aria-controls="nav-uploads" aria-selected="false">
-      Screenshots
-    </a>
-    <a class="nav-link " id="nav-resolution-tab" data-toggle="pill" href="#nav-resolution" role="tab" aria-controls="nav-resolution" aria-selected="false">
-      Resolution
-    </a>
+    </li>
+
+    <li class="nav-item">
+      <button class="nav-link" id="uploads-tab" data-bs-toggle="tab" data-bs-target="#uploads" type="button" role="tab" aria-controls="uploads" aria-selected="false">Screenshots</button>
+    </li>
+
+    <li class="nav-item">
+      <button class="nav-link" id="resolution-tab" data-bs-toggle="tab" data-bs-target="#resolution" type="button" role="tab" aria-controls="resolution" aria-selected="false">Resolution</button>
+    </li>
+
+    <li class="nav-item">
     <% if @surveys.any? %>
-      <a class="nav-link " id="nav-surveys-tab" data-toggle="pill" href="#nav-surveys" role="tab" aria-controls="nav-surveys" aria-selected="false">
+      <button class="nav-link " id="surveys-tab" data-toggle="pill" href="#surveys" role="tab" aria-controls="surveys" aria-selected="false">
         Surveys
-      </a>
+      </button>
     <% end %>
-    <a class="nav-link " id="nav-history-tab" data-toggle="pill" href="#nav-history" role="tab" aria-controls="nav-history" aria-selected="false">
-      Issue History
-    </a>
-  </div>
+    </li>
+
+    <li class="nav-item">
+      <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">History</button>
+    </li>
+  </ul>
 
   <div class="tab-content" id="nav-tabContent" style="width: 100%;">
 
-    <div class="tab-pane fade show active" id="nav-internal-discussion" role="tabpanel" aria-labelledby="nav-internal-discussion-tab">
+    <div class="tab-pane fade show active" id="internal-discussion" role="tabpanel" aria-labelledby="internal-discussion-tab">
       <div id="internal-discussion">
         <% internal_comments.each do |comment| %>
           <%= render partial: "comment", locals: { comment: comment, project: @project } %>
@@ -191,7 +199,7 @@
       <% end %>
     </div>
 
-    <div class="tab-pane fade" id="nav-reporter-discussion" role="tabpanel" aria-labelledby="nav-reporter-discussion-tab">
+    <div class="tab-pane fade" id="reporter-discussion" role="tabpanel" aria-labelledby="reporter-discussion-tab">
 
       <div id="reporter-discussion">
         <% reporter_discussion_comments.each do |comment| %>
@@ -213,7 +221,7 @@
       <% end %>
     </div>
 
-    <div class="tab-pane fade" id="nav-respondent-discussion" role="tabpanel" aria-labelledby="nav-respondent-discussion-tab">
+    <div class="tab-pane fade" id="respondent-discussion" role="tabpanel" aria-labelledby="respondent-discussion-tab">
 
       <% if @issue.respondent_summary %>
         <div class="card mb-3 mr-3" style="width: 100%">
@@ -253,7 +261,7 @@
       </div>
     </div>
 
-    <div class="tab-pane fade" id="nav-uploads" role="tabpanel" aria-labelledby="nav-uploads-tab">
+    <div class="tab-pane fade" id="uploads" role="tabpanel" aria-labelledby="uploads-tab">
       <div class="uploads">
          <% @issue.uploads.each do |upload| %>
            <%= link_to image_tag(upload), upload %>
@@ -261,7 +269,7 @@
        </div>
     </div>
 
-    <div class="tab-pane fade" id="nav-resolution" role="tabpanel" aria-labelledby="nav-resolution-tab">
+    <div class="tab-pane fade" id="resolution" role="tabpanel" aria-labelledby="resolution-tab">
       <% if @issue.resolved_at.nil? %>
         <%= form_for @issue, url: project_issue_resolve_path(@project, @issue) do |f| %>
           <div class="form-group">
@@ -291,7 +299,7 @@
       <% end %>
     </div>
 
-    <div class="tab-pane fade" id="nav-surveys" role="tabpanel" aria-labelledby="nav-surveys-tab">
+    <div class="tab-pane fade" id="surveys" role="tabpanel" aria-labelledby="surveys-tab">
       <ul>
         <% @surveys.each do |survey| %>
           <li>
@@ -302,7 +310,7 @@
       </ul>
     </div>
 
-    <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
       <ul>
         <li>
           Submitted
@@ -323,6 +331,11 @@
 </div>
 
 <%= javascript_tag do %>
+
+  function showTab() {
+    const tabPanes = document.getElement
+  }
+
   function toggle_show_block_form(id) {
     $('#block-form-' + id).toggle();
   }
