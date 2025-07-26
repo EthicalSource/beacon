@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-#  mount_griddler
-
   devise_for :accounts, controllers: {
     sessions: "accounts/sessions",
     registrations: "accounts/registrations",
@@ -13,12 +11,9 @@ Rails.application.routes.draw do
     authy_onetouch_status: "/onetouch-status"
   }
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  # FIXME commented out during upgrade
-  # authenticate :account, ->(u) { u.is_admin? } do
-  #   mount Resque::Server.new, at: "/resque"
-  # end
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
 
   root to: "static_content#main"
 

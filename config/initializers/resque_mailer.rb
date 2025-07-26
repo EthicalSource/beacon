@@ -1,3 +1,3 @@
-class AsyncMailer < ActionMailer::Base
-  include Resque::Mailer
-end
+# class AsyncMailer < ActionMailer::Base
+  # include Resque::Mailer
+# end

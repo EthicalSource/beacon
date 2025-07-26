@@ -1,7 +1,0 @@
-{
-  "name": "beacon",
-  "private": true,
-  "dependencies": {
-    "octicons": "^8.3.0"
-  }
-}
