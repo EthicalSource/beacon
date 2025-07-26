@@ -33,8 +33,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.string "aasm_state"
     t.integer "report_number"
     t.text "admin_note"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_abuse_reports_on_account_id"
   end
 
@@ -51,15 +51,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.integer "four_o_fours", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_activity_logs_on_account_id"
   end
 
   create_table "account_issues", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "account_id"
-    t.string "issue_encrypted_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_issues_on_account_id"
   end
 
   create_table "account_project_blocks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -86,6 +82,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.boolean "flag_requested", default: false
     t.text "flag_requested_reason"
     t.string "phone_encrypted"
+    t.string "authy_id"
+    t.datetime "last_sign_in_with_authy", precision: nil
+    t.boolean "authy_enabled", default: false
     t.boolean "send_sms_on_issue_open", default: false
     t.boolean "is_external_reporter", default: false
     t.datetime "created_at", null: false
@@ -107,6 +106,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.index ["authy_id"], name: "index_accounts_on_authy_id"
     t.index ["confirmation_token"], name: "index_accounts_on_confirmation_token", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["normalized_email"], name: "index_accounts_on_normalized_email", unique: true
@@ -164,11 +164,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
   end
 
   create_table "consequences", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "severity"
     t.uuid "consequence_guide_id"
-    t.integer "severity", null: false
-    t.string "label", null: false
-    t.text "action", null: false
-    t.text "consequence", null: false
+    t.string "label"
+    t.text "action"
+    t.text "consequence"
     t.string "email_to_notify"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -201,9 +201,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.uuid "organization_id"
     t.string "email"
     t.boolean "is_owner", default: false
+    t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "message"
     t.index ["account_id"], name: "index_invitations_on_account_id"
     t.index ["organization_id"], name: "index_invitations_on_organization_id"
     t.index ["project_id"], name: "index_invitations_on_project_id"
@@ -219,7 +219,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.boolean "visible_only_to_moderators", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["issue_id"], name: "index_issue_comments_on_issue_id"
   end
 
   create_table "issue_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -292,6 +291,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.boolean "accept_issues_by_email", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_organizations_on_account_id"
   end
 
   create_table "project_issues", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -313,6 +313,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.boolean "show_moderator_names", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_settings_on_project_id"
   end
 
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -342,6 +343,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.boolean "bulk_created", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_projects_on_account_id"
+    t.index ["name"], name: "index_projects_on_name"
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["organization_name"], name: "index_projects_on_organization_name"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
@@ -355,6 +358,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.uuid "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_respondent_templates_on_organization_id"
+    t.index ["project_id"], name: "index_respondent_templates_on_project_id"
   end
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -400,42 +405,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_020633) do
     t.index ["account_id"], name: "index_suspicious_activity_logs_on_account_id"
   end
 
-  add_foreign_key "abuse_report_subjects", "abuse_reports"
-  add_foreign_key "abuse_report_subjects", "accounts"
-  add_foreign_key "abuse_report_subjects", "issues"
-  add_foreign_key "abuse_report_subjects", "projects"
-  add_foreign_key "abuse_reports", "accounts"
-  add_foreign_key "account_activity_logs", "accounts"
-  add_foreign_key "account_issues", "accounts"
-  add_foreign_key "account_project_blocks", "accounts"
-  add_foreign_key "account_project_blocks", "projects"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "autoresponders", "organizations"
-  add_foreign_key "autoresponders", "projects"
-  add_foreign_key "consequence_guides", "organizations"
-  add_foreign_key "consequence_guides", "projects"
-  add_foreign_key "consequences", "consequence_guides"
-  add_foreign_key "credentials", "accounts"
-  add_foreign_key "invitations", "accounts"
-  add_foreign_key "invitations", "organizations"
-  add_foreign_key "invitations", "projects"
-  add_foreign_key "issue_comments", "issues"
-  add_foreign_key "issue_events", "issues"
-  add_foreign_key "issues", "consequences", column: "reporter_consequence_id"
-  add_foreign_key "moderator_blocks", "accounts"
-  add_foreign_key "moderator_blocks", "issues"
-  add_foreign_key "notifications", "issue_comments"
-  add_foreign_key "notifications", "issues"
-  add_foreign_key "notifications", "projects"
-  add_foreign_key "organizations", "accounts"
-  add_foreign_key "project_issues", "projects"
-  add_foreign_key "project_settings", "projects"
-  add_foreign_key "projects", "accounts"
-  add_foreign_key "respondent_templates", "projects"
-  add_foreign_key "roles", "accounts"
-  add_foreign_key "roles", "organizations"
-  add_foreign_key "roles", "projects"
-  add_foreign_key "surveys", "projects"
-  add_foreign_key "suspicious_activity_logs", "accounts"
 end

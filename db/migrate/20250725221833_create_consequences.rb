@@ -2,6 +2,7 @@ class CreateConsequences < ActiveRecord::Migration[8.0]
   def change
     create_table :consequences, id: :uuid do |t|
       t.integer :severity
+			t.uuid :consequence_guide_id
       t.string :label
       t.text :action
       t.text :consequence
