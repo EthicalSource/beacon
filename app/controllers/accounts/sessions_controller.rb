@@ -19,16 +19,16 @@ module Accounts
       set_flash_message!(:notice, :signed_in)
       sign_in(resource_name, resource)
 
-      if ENV["BLOCK_LOGIN_VIA_TOR"]
-        if Tor::DNSEL.include?(current_account.current_sign_in_ip)
-          # This is a correct login but it occurred via a Tor exit node, which isn't allowed.
-          # Since we don't want mysterious failures for honest users, we don't just return a normal
-          # your-password-was-wrong login failure.
-          Rails.logger.info("Blocked login by Tor")
-          sign_out
-          return render_forbidden
-        end
-      end
+#       if ENV["BLOCK_LOGIN_VIA_TOR"]
+#         if Tor::DNSEL.include?(current_account.current_sign_in_ip)
+#           # This is a correct login but it occurred via a Tor exit node, which isn't allowed.
+#           # Since we don't want mysterious failures for honest users, we don't just return a normal
+#           # your-password-was-wrong login failure.
+#           Rails.logger.info("Blocked login by Tor")
+#           sign_out
+#           return render_forbidden
+#         end
+#       end
 
       respond_with resource, location: after_sign_in_path_for(resource)
     end
